@@ -10,9 +10,17 @@ defmodule ContentSecurityPolicy.MixProject do
       build_embedded: Mix.env() == :prod,
       start_permanent: Mix.env() == :prod,
       description: description(),
-      description: description(),
       package: package(),
       deps: deps(),
+      dialyzer: [
+        plt_add_apps: [:mix, :ex_unit],
+        list_unused_filters: true,
+        # Put the project-level PLT in the priv/ directory (instead of
+        # the default _build/ location). This is the recommended
+        # approach for running Dialyzer in CI (see:
+        # https://hexdocs.pm/dialyxir/readme.html#continuous-integration)
+        plt_file: {:no_warn, "priv/plts/project.plt"}
+      ],
       docs: docs(),
       name: "ContentSecurityPolicy",
       source_url: "https://github.com/mbramson/content_security_policy"
@@ -32,13 +40,14 @@ defmodule ContentSecurityPolicy.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:credo, "~> 1.1.0", only: [:dev, :test], runtime: false},
-      {:dialyxir, "~> 1.0.0-rc.7", only: [:dev], runtime: false},
-      {:ex_doc, "~> 0.21", only: :dev},
-      {:mix_test_watch, "~> 0.6", only: :dev, runtime: false},
-      {:plug, "~> 1.1"},
+      {:credo, "~> 1.7", only: [:dev, :test], runtime: false},
+      {:dialyxir, "~> 1.4", only: [:dev], runtime: false},
+      {:ex_doc, "~> 0.37", only: :dev},
+      {:mix_test_watch, "~> 1.2", only: :dev, runtime: false},
+      {:plug, "~> 1.16"},
       {:order_invariant_compare, "~> 1.0.0", only: :test},
-      {:stream_data, ">= 0.0.0", only: :test}
+      {:stream_data, ">= 0.0.0", only: :test},
+      {:mix_audit, "~> 2.1", only: [:dev, :test], runtime: false}
     ]
   end
 
