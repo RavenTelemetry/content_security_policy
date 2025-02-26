@@ -22,3 +22,7 @@ erl_crash.dump
 # Ignore package tarball (built via "mix hex.build").
 content_security_policy-*.tar
 
+# Ignore dialyzer artifacts that are moved to work better in CI
+# https://hexdocs.pm/dialyxir/readme.html#continuous-integration
+/priv/plts/*.plt
+/priv/plts/*.plt.hash
