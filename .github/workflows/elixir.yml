@@ -38,7 +38,7 @@ jobs:
           elixir-version: ${{matrix.elixir}}
 
       - name: Cache dependencies
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: |
             deps
@@ -68,7 +68,7 @@ jobs:
       # https://github.com/jeremyjh/dialyxir/blob/master/docs/github_actions.md
       - name: Cache PLT (for Dialyzer)
         id: plt_cache
-        uses: actions/cache/restore@v4
+        uses: actions/cache/restore@v5
         with:
           path: |
             priv/plts
@@ -87,7 +87,7 @@ jobs:
       # and save steps in case running dialyzer fails.
       - name: Save PLT cache
         id: plt_cache_save
-        uses: actions/cache/save@v4
+        uses: actions/cache/save@v5
         if: steps.plt_cache.outputs.cache-hit != 'true'
         with:
           key: |
